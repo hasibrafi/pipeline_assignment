@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth import update_session_auth_hash
 
 
 from .models import *
@@ -70,7 +71,7 @@ def ChangePassword(request, id):
         if new_password == confirm_new_password:
             user.set_password(new_password)
             user.save()
-            #return render(request, 'password_confirmation.html', {'user':user})
+            update_session_auth_hash(request, request.user)
             return redirect('index')
         else:
             messages.info(request, "Password didn't match!")

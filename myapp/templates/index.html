@@ -8,6 +8,8 @@
 </head>
 <body>
     <h3>Pipeline Bangladesh</h3>
+
+    {% block content %}
     <div>
         <a href="{% url 'index' %}">Home</a> |
 
@@ -17,6 +19,11 @@
         <a href="{% url 'login' %}">Login</a> |
         <a href="{% url 'logout' %}">Logout</a> 
     </div>
-
+    {% endblock %}
+    <div>
+        {% if request.user.is_authenticated == False %}
+            <p>Please login to continue..</p>
+        {% endif %}
+    </div>
 </body>
 </html>
